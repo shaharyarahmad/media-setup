@@ -6,15 +6,23 @@ services:
         restart: unless-stopped
         volumes:
             - /config/plex:/config
-            - /media/movies:/data/movies
-            - /media/series:/data/tvshows
-            - /media/config/plex/transcode:/data/transcode
-        networks:
-            - local    
+            - /media:/data
+            - /media/config/plex/transcode:/transcode
+        network_mode: bridge  
         restart: unless-stopped
         environment:
             - TZ=Asia/Karachi
             - PLEX_CLAIM=<claimToken>
+        ports:
+            - 32400:32400/tcp
+            - 3005:3005/tcp
+            - 8324:8324/tcp
+            - 32469:32469/tcp
+            - 1900:1900/udp
+            - 32410:32410/udp
+            - 32412:32412/udp
+            - 32413:32413/udp
+            - 32414:32414/udp            
             
     sonarr:
         image: linuxserver/sonarr
@@ -24,8 +32,7 @@ services:
             - /config/sonarr:/config
             - /media/downloads:/downloads
             - /media/series:/tv
-        networks:
-            - local    
+        network_mode: bridge
         environment:
             - TZ=Asia/Karachi
         ports:
@@ -39,8 +46,7 @@ services:
             - /config/radarr:/config
             - /media/downloads:/downloads
             - /media/movies:/movies
-        networks:
-            - local        
+        network_mode: bridge     
         environment:
             - TZ=Asia/Karachi
         ports:
@@ -53,8 +59,7 @@ services:
         volumes:
             - /config/jackett:/config
             - /media/downloads:/downloads
-        networks:
-            - local      
+        network_mode: bridge
         environment:
             - TZ=Asia/Karachi
         ports:
@@ -67,8 +72,7 @@ services:
         volumes:
             - /config/transmission:/config
             - /media/downloads:/downloads
-        networks:
-            - local    
+        network_mode: bridge
         environment:
             - TZ=Asia/Karachi
         ports:
@@ -84,11 +88,6 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - /opt/portainer/data:/data
-        networks:
-            - local    
+        network_mode: bridge
         ports:
             - 9000:9000
-
-networks:
-  local:
-    driver: bridge            
