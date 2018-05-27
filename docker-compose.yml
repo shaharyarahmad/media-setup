@@ -77,7 +77,7 @@ services:
         command: -H unix:///var/run/docker.sock
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - portainer_data:/data
+            - /opt/portainer/data:/data
         network_mode: host    
         ports:
             - 9000:9000
