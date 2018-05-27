@@ -22,10 +22,8 @@ sudo usermod -a -G docker $USER
 #Docker Compose
 sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-sudo curl -L https://raw.githubusercontent.com/shaharyarahmad/media-setup/master/docker-compose.yml -o /home/vagrant/docker-compose.yml
 
 #Docker Containers
-sed -i 's/claim-/<claimToken>/g' docker-compose.yml
 sudo docker-compose up -d
 
 #Clean
