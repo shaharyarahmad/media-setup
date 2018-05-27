@@ -2,10 +2,10 @@ export DEBIAN_FRONTEND=noninteractive
 export LC_ALL=C.UTF-8
 
 #Update 
-apt-get update && apt-get upgrade
+apt-get update -y && apt-get upgrade -y
 
 #Docker
-sudo apt-get install \
+sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -15,17 +15,18 @@ sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
-sudo apt-get update
-sudo apt-get install docker-ce
-sudo usermod -aG docker vagrant
+sudo apt-get update -y
+sudo apt-get install -y docker-ce
+sudo usermod -a -G docker $USER
 
 #Docker Compose
 sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-wget https://raw.githubusercontent.com/shaharyarahmad/media-setup/master/docker-compose.yml
+sudo curl -L https://raw.githubusercontent.com/shaharyarahmad/media-setup/master/docker-compose.yml -o /home/vagrant/docker-compose.yml
 
 #Docker Containers
-docker-compose up -d
+sed -i 's/claim-/<claimToken>/g' docker-compose.yml
+sudo docker-compose up -d
 
 #Clean
-apt-get autoremove
+apt-get autoremove -y
