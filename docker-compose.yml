@@ -31,7 +31,7 @@ services:
         volumes:
             - /config/sonarr:/config
             - /media/downloads:/downloads
-            - /media/series:/tv
+            - /media/series:/series
         network_mode: bridge
         environment:
             - TZ=Asia/Karachi
