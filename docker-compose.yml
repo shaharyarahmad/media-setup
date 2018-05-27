@@ -1,0 +1,83 @@
+version: '3'
+services:
+    plex:
+        image: plexinc/pms-docker
+        container_name: plex
+        restart: unless-stopped
+        volumes:
+            - /media/config/plex:/config
+            - /media/movies:/data/movies
+            - /media/series:/data/tvshows
+            - /media/config/plex/transcode:/data/transcode
+        network_mode: host
+        restart: unless-stopped
+        environment:
+            - TZ=America/New_York
+            - PLEX_CLAIM=<claimToken>
+    sonarr:
+        image: linuxserver/sonarr
+        container_name: sonarr
+        restart: unless-stopped
+        volumes:
+            - /media/config/sonarr:/config
+            - /media/downloads:/downloads
+            - /media/series:/tv
+        network_mode: host            
+        environment:
+            - TZ=America/New_York
+        ports:
+            - 8989:8989
+
+    radarr:
+        image: linuxserver/radarr
+        container_name: radarr
+        restart: unless-stopped
+        volumes:
+            - /media/config/radarr:/config
+            - /media/downloads:/downloads
+            - /media/movies:/movies
+        network_mode: host        
+        environment:
+            - TZ=America/New_York
+        ports:
+            - 7878:7878
+
+    jackett:
+        image: linuxserver/jackett
+        container_name: jackett
+        restart: unless-stopped
+        volumes:
+            - /media/config/jackett:/config
+            - /media/downloads:/downloads
+        network_mode: host    
+        environment:
+            - TZ=America/New_York
+        ports:
+            - 9117:9117
+
+    transmission:
+        image: linuxserver/transmission
+        container_name: transmission
+        restart: unless-stopped
+        volumes:
+            - /media/config/transmission:/config
+            - /media/downloads:/downloads
+        network_mode: host    
+        environment:
+            - TZ=America/New_York
+        ports:
+            - 9091:9091        
+            - 51413:51413
+            - "51413:51413/udp"
+
+    portainer:
+        image: portainer/portainer
+        container_name: portainer
+        restart: unless-stopped
+        command: -H unix:///var/run/docker.sock
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - portainer_data:/data
+        network_mode: host    
+        ports:
+            - 9000:9000
