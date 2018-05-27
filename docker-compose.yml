@@ -9,7 +9,8 @@ services:
             - /media/movies:/data/movies
             - /media/series:/data/tvshows
             - /media/config/plex/transcode:/data/transcode
-        network_mode: host
+        networks:
+            - local    
         restart: unless-stopped
         environment:
             - TZ=America/New_York
@@ -22,7 +23,8 @@ services:
             - /media/config/sonarr:/config
             - /media/downloads:/downloads
             - /media/series:/tv
-        network_mode: host            
+        networks:
+            - local    
         environment:
             - TZ=America/New_York
         ports:
@@ -36,9 +38,10 @@ services:
             - /media/config/radarr:/config
             - /media/downloads:/downloads
             - /media/movies:/movies
-        network_mode: host        
+        networks:
+            - local        
         environment:
-            - TZ=America/New_York
+            - TZ=Asia/Karachi
         ports:
             - 7878:7878
 
@@ -49,9 +52,10 @@ services:
         volumes:
             - /media/config/jackett:/config
             - /media/downloads:/downloads
-        network_mode: host    
+        networks:
+            - local      
         environment:
-            - TZ=America/New_York
+            - TZ=Asia/Karachi
         ports:
             - 9117:9117
 
@@ -62,9 +66,10 @@ services:
         volumes:
             - /media/config/transmission:/config
             - /media/downloads:/downloads
-        network_mode: host    
+        networks:
+            - local    
         environment:
-            - TZ=America/New_York
+            - TZ=Asia/Karachi
         ports:
             - 9091:9091        
             - 51413:51413
@@ -78,6 +83,11 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - /opt/portainer/data:/data
-        network_mode: host    
+        networks:
+            - local    
         ports:
             - 9000:9000
+
+networks:
+  local:
+    driver: bridge            
