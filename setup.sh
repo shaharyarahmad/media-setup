@@ -26,3 +26,6 @@ wget https://raw.githubusercontent.com/shaharyarahmad/media-setup/master/docker-
 
 #Docker Containers
 docker-compose up -d
+
+#Clean
+apt-get autoremove
