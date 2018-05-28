@@ -16,6 +16,7 @@ Vagrant.configure("2") do |config|
 	end
 
 	config.vm.provision "file", source: "./docker-compose.yml", destination: "~/docker-compose.yml"
+	config.vm.provision "file", source: "./config", destination: "~/config"
 	
 	config.vm.provision "shell" do |s|
         s.path = "./setup.sh"
