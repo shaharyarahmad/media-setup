@@ -63,7 +63,7 @@ sudo mv /home/vagrant/config/sonarr/nzbdrone.pid /config/sonarr/nzbdrone.pid
 #Move Config for Transmission
 sudo rm -f /config/transmission/settings.json
 sudo mv /home/vagrant/config/transmission/settings.json /config/transmission/settings.json
-docker restart transmission
+docker exec -it transmission pkill -HUP transmission-da
 
 #Clean Config Files
 rm -rf /home/vagrant/config
