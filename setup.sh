@@ -63,3 +63,6 @@ mv ~/config/sonarr/nzbdrone.pid /config/sonarr/nzbdrone.pid
 rm -f /config/transmission/settings.json
 mv ~/config/transmission/settings.json /config/transmission/settings.json
 docker restart transmission
+
+#Clean Config Files
+rm -rf ~/config
