@@ -9,7 +9,6 @@ services:
             - /media:/data
             - /media/config/plex/transcode:/transcode
         network_mode: bridge  
-        restart: unless-stopped
         environment:
             - TZ=Asia/Karachi
             - PLEX_CLAIM=<claimToken>
