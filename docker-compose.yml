@@ -7,7 +7,7 @@ services:
         volumes:
             - /config/plex:/config
             - /media:/data
-            - /media/config/plex/transcode:/transcode
+            - /config/plex/transcode:/transcode
         network_mode: bridge  
         environment:
             - TZ=Asia/Karachi
